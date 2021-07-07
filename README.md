@@ -22,13 +22,13 @@ This will install all of the required packages that has been mentioned in `requi
 
 ## Database Setup
 Restore the database using the trivia.psql file provided. From the backend folder in terminal run:
-```PowerShell
+```
 psql trivia < trivia.psql
 ```
 
 ## Running the server
 Run the server by navigating to the project dirctory then run this code in the terminal:
-```PowerShell
+```
 python -m flask run //in windows PowerShell, Mac&Linux without python -m
 ```
 
