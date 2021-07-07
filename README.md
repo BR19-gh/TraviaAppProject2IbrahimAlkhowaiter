@@ -1,44 +1,272 @@
-# Full Stack API Final Project
+# Ibrahim Alkhowaiter FSND (Project 2)
 
-## Full Stack Trivia
+## Getting Started
 
-Udacity is invested in creating bonding experiences for its employees and students. A bunch of team members got the idea to hold trivia on a regular basis and created a  webpage to manage the trivia app and play the game, but their API experience is limited and still needs to be built out. 
+### Instal Dependencies
 
-That's where you come in! Help them finish the trivia app so they can start holding trivia and seeing who's the most knowledgeable of the bunch. The application must:
+#### Python 3.7
+[Download Here](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
-1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
-2) Delete questions.
-3) Add questions and require that they include question and answer text.
-4) Search for questions based on a text query string.
-5) Play the quiz game, randomizing either all questions or within a specific category. 
+#### pip Dependencies
+Navigate to the `/backend` directory and run:
+```
+pip install -r requirements.txt
+```
 
-Completing this trivia app will give you the ability to structure plan, implement, and test an API - skills essential for enabling your future applications to communicate with others. 
+This will install all of the required packages that has been mentioned in `requirements.txt` file.
 
-## Tasks
+##### Key Dependencies
+- [Flask](http://flask.pocoo.org/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#)
 
-There are `TODO` comments throughout project. Start by reading the READMEs in:
+## Database Setup
+Restore the database using the trivia.psql file provided. From the backend folder in terminal run:
+```PowerShell
+psql trivia < trivia.psql
+```
 
-1. [`./frontend/`](./frontend/README.md)
-2. [`./backend/`](./backend/README.md)
+## Running the server
+Run the server by navigating to the project dirctory then run this code in the terminal:
+```PowerShell
+python -m flask run //in windows PowerShell, Mac&Linux without python -m
+```
 
-We recommend following the instructions in those files in order. This order will look familiar from our prior work in the course.
+## Endpoints
+### GET `/categories`
+- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category.
+- Request arguments: None.
+- Returns:  An object with these keys:
+  - `success`: The success flag
+  - `categories`: Contains a object of `id:category_string` and `key:value pairs`.
 
-## Starting and Submitting the Project
+```json
+{
+  "success": true,
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  }
+}
+```
 
-[Fork](https://help.github.com/en/articles/fork-a-repo) the [project repository]() and [Clone](https://help.github.com/en/articles/cloning-a-repository) your forked repository to your machine. Work on the project locally and make sure to push all your changes to the remote repository before submitting the link to your repository in the Classroom. 
+### GET `/questions`
+- Fetches:
+  - A list of questions (paginated by 10 items)
+  - A dictionary of categories
+  - The total of questions
+  - The current category
+- Request arguments:
+  - `page` (integer) - The current page
+- Returns: An object with these keys:
+  - `success`: The success flag
+  - `questions`: A list of questions (paginated by 10 items)
+  - `categories`: A dictionary of categories
+  - `total_questions`: The total of questions
+  - `current_category`: The current category
 
-## About the Stack
+```json
+{
+  "success": true,
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+  ],
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "total_questions": 10,
+  "current_category": null,
+}
+```
 
-We started the full stack application for you. It is desiged with some key functional areas:
+### DELETE `/questions/:question_id/`
+- Delete question using a question ID
+- Request arguments:
+  - `question_id` (integer): The question id
+- Returns: An object with theses keys:
+  - `success` that contains a `boolean`.
+  - `deleted` that contains the ID of the question created.
 
-### Backend
+```json
+{
+  "success": true,
+  "deleted": 1,
+}
+```
 
-The `./backend` directory contains a partially completed Flask and SQLAlchemy server. You will work primarily in app.py to define your endpoints and can reference models.py for DB and SQLAlchemy setup. 
+### POST `/questions`
+- Create a new question.
+- Request arguments:
+  - `question` (string) - The question
+  - `answer` (string) - The answer
+  - `difficulty` (string) - The question difficulty
+  - `category` (string) - The question category
+- Returns: An object with theses keys:
+  - `success` that contains a `boolean`.
+  - `created` that contains the ID of the question created.
 
-### Frontend
+```json
+{
+  "success": true,
+  "created": 1,
+}
+```
 
-The `./frontend` directory contains a complete React frontend to consume the data from the Flask server. You will need to update the endpoints after you define them in the backend. Those areas are marked with TODO and can be searched for expediency. 
+### POST `/search`
+- Search a question.
+- Request arguments:
+  - `search` (string) - The term to search
+- Returns: An object with these keys:
+  - `success`: The success flag
+  - `questions`: A list of questions
+  - `total_questions`: The total of questions
+  - `current_category`: The current category
 
-Pay special attention to what data the frontend is expecting from each API response to help guide how you format your API. 
+```json
+{
+  "success": true,
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+  ],
+  "total_questions": 10,
+  "current_category": null,
+}
+```
 
-[View the README.md within ./frontend for more details.](./frontend/README.md)
+
+### GET `/categories/:category_id/questions`
+- Fetches a list of questions based on category.
+- Request arguments:
+  - `category_id` (integer): The category id
+- Returns: An object with these keys:
+  - `success`: The success flag
+  - `questions`: A list of questions (paginated by 10 items)
+  - `total_questions`: The total of questions
+  - `current_category`: The current category
+
+```json
+{
+  "success": true,
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+  ],
+  "total_questions": 10,
+  "current_category": 1,
+}
+```
+
+### POST `/quizzes`
+- Fetches a question to play the quiz.
+- Request arguments:
+  - `quiz_category` (dictionary): The quiz category with the `type` and the `id`.
+  - `previous_ids` (list of strings): The previous questions ids
+- Returns: An object with these keys:
+  - `success`: The success flag
+  - `question`: The question to play
+
+```json
+{
+  "success": true,
+  "question":{
+    "answer": "Apollo 13",
+    "category": 5,
+    "difficulty": 4,
+    "id": 2,
+    "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+  }
+}
+```
+
+## Errors
+
+### Error 400
+- Returns an object with these keys: `success`, `error` and `message`.
+
+```json
+{
+  "success": false,
+  "error": 400,
+  "message": "Bad Request"
+}
+```
+
+### Error 404
+- Returns an object with these keys: `success`, `error` and `message`.
+
+```json
+{
+  "success": false,
+  "error": 404,
+  "message": "Resource not Found"
+}
+```
+
+### Error 422
+- Returns an object with these keys: `success`, `error` and `message`.
+
+```json
+{
+  "success": false,
+  "error": 422,
+  "message": "Unprocessable"
+}
+```
+
+### Error 500
+- Returns an object with these keys: `success`, `error` and `message`.
+
+```json
+{
+  "success": false,
+  "error": 500,
+  "message": "Internal Server Error"
+}
+```
