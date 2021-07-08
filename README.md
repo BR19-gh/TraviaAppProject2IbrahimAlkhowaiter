@@ -13,9 +13,6 @@ Open your terminal and run:
 npm install
 ```
 
-
-## Required Tasks
-
 ## Running Your Frontend in Dev Mode
 To run the app in development mode, run 
 ```bash
