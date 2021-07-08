@@ -1,6 +1,34 @@
 # Ibrahim Alkhowaiter FSND (Project 2)
 
-## Getting Started
+## Getting Setup (Frontend)
+
+### Installing Dependencies
+
+#### Installing Node and NPM
+[Download tips here](https://nodejs.org/en/download/).
+
+#### Installing project dependencies
+Open your terminal and run:
+```
+npm install
+```
+
+
+## Required Tasks
+
+## Running Your Frontend in Dev Mode
+To run the app in development mode, run 
+```bash
+npm start
+```
+in the terminal.
+
+You can change the script in the ```package.json``` file. 
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.
+
+<hr>
+
+## Getting Started (Backend)
 
 ### Instal Dependencies
 
