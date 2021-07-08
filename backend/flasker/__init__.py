@@ -22,7 +22,7 @@ def getIdsFromQues(ques, pre_ids):
     return ids
 
 
-def createApp(test_config=None):
+def create_app(test_config=None):
     '''
     config
     '''
