@@ -75,7 +75,7 @@ def create_app(test_config=None):
         number of total questions, current category, categories. 
         '''
         try:
-                page = req.args.get('page', 1, type=int)
+                page = request.args.get('page', 1, type=int)
 
                 # categories
                 categs = Category.query.order_by(Category.id).all()
@@ -144,7 +144,7 @@ def create_app(test_config=None):
             '''
 
             # Get Data
-            body = req.get_json()
+            body = request.get_json()
             que = body.get('question', None)
             answer = body.get('answer', None)
             difficulty = body.get('difficulty', None)
@@ -174,7 +174,7 @@ def create_app(test_config=None):
             '''
 
             # Get Data
-            body = req.get_json()
+            body = request.get_json()
             search = body.get('searchTerm', None)
 
             try:
@@ -202,7 +202,7 @@ def create_app(test_config=None):
                     '''
                     try:
                         # page
-                        page = req.args.get('page', 1, type=int)
+                        page = request.args.get('page', 1, type=int)
 
                         # questions
                         ques = Question.query \
@@ -240,7 +240,7 @@ def create_app(test_config=None):
                 try:
                     # Get Data
                     ques = None
-                    body = req.get_json()
+                    body = request.get_json()
                     quiz_categ = body.get('quiz_category', None)
                     pre_ids = body.get('previous_questions', None)
                     categ_id = quiz_categ.get('id')
